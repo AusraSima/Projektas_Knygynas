@@ -4,12 +4,21 @@
 // Parašykite funkciją, kuri apskaičiuotų 25 % nuolaidą knygoms, 
 // kurių kaina didesnė nei 10 eurų ir atspausdintų.
 
-function countPrice(arr) {
-    let sum = 0;
+function checkPrice(arr) {
+    let newArr = [];
     for (let i = 0; i < arr.length; i++) {
-        sum += arr[i].price;
+        if (arr[i].price > 10) {
+            newArr.push(arr[i]);
+        }
     }
-    return sum;
+    return newArr;
+}
+
+function decreasePrice(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        arr[i].price -= Number(arr[i] * 0.25);
+    }
+    return arr;
 }
 
 let books = [
@@ -20,7 +29,12 @@ let books = [
     { title: 'Knyga #5', price: 77.17 },
 ];
 
-let sum = countPrice(books);
+let discounted = books.filter(book => book.price > 10)
+.map(book => (book.price * 0.75).toFixed(2));
 
 // eslint-disable-next-line no-console
-console.log(sum.toFixed(2));
+// console.log(discounted);
+
+document.getElementById("content").innerHTML = `
+!!! Nukainuota !!!<br>
+Nauja kaina: ${discounted} `;
